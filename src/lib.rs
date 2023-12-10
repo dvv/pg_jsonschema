@@ -37,7 +37,7 @@ fn jsonschema_validation_errors(schema: Json, instance: Json) -> Vec<String> {
     };
     let errors = match schema.validate(&instance.0) {
         Ok(_) => vec![],
-        Err(e) => e.into_iter().map(|e| e.to_string()).collect(),
+        Err(e) => e.into_iter().map(|e| format!("{}: {}", e.instance_path, e.to_string())).collect(),
     };
     errors
 }
